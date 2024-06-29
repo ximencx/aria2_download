@@ -19,4 +19,4 @@ dependencies {
 ext{
   PUBLISH_ARTIFACT_ID = 'compiler'
 }
-apply from: '../gradle/mavenCentral-release.gradle'
+//apply from: '../gradle/mavenCentral-release.gradle'

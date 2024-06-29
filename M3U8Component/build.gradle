@@ -40,4 +40,4 @@ dependencies {
 ext{
   PUBLISH_ARTIFACT_ID = 'm3u8'
 }
-apply from: '../gradle/mavenCentral-release.gradle'
+//apply from: '../gradle/mavenCentral-release.gradle'
