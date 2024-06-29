@@ -166,28 +166,32 @@ final class HttpDFileInfoTask implements IInfoTask, Runnable {
       isChunked = true;
     }
     Map<String, List<String>> headers = conn.getHeaderFields();
-    String disposition = conn.getHeaderField("Content-Disposition");
+//    String disposition = conn.getHeaderField("Content-Disposition");
 
-    if (taskOption.isUseServerFileName()) {
-      if (!TextUtils.isEmpty(disposition)) {
-        mEntity.setDisposition(CommonUtil.encryptBASE64(disposition));
-        handleContentDisposition(disposition);
-      } else {
-        if (taskOption.getFileNameAdapter() != null) {
-          String newName =
-              taskOption.getFileNameAdapter().handleFileName(headers, mEntity.getKey());
-          mEntity.setServerFileName(newName);
-          renameFile(newName);
-        }
-      }
-    }
+//    if (taskOption.isUseServerFileName()) {
+//      if (!TextUtils.isEmpty(disposition)) {
+//        mEntity.setDisposition(CommonUtil.encryptBASE64(disposition));
+//        handleContentDisposition(disposition);
+//      } else {
+//        if (taskOption.getFileNameAdapter() != null) {
+//          String newName =
+//              taskOption.getFileNameAdapter().handleFileName(headers, mEntity.getKey());
+//          mEntity.setServerFileName(newName);
+//          renameFile(newName);
+//        }
+//      }
+//    }
 
     CookieManager msCookieManager = new CookieManager();
     List<String> cookiesHeader = headers.get("Set-Cookie");
 
     if (cookiesHeader != null) {
       for (String cookie : cookiesHeader) {
-        msCookieManager.getCookieStore().add(null, HttpCookie.parse(cookie).get(0));
+        try {
+          msCookieManager.getCookieStore().add(null, HttpCookie.parse(cookie).get(0));
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
       }
       taskOption.setCookieManager(msCookieManager);
     }
